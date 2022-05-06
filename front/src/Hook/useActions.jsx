@@ -14,4 +14,4 @@ const useAction = (actions, deps) => {
         deps ? [dispatch, ...deps] : deps
     )
 }
-export default useAction
+export default useAction 
