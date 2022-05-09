@@ -5,6 +5,9 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 import createSagaMiddleware from 'redux-saga' 
 import rootSaga from '../sagas'
 
+import { persistStore } from 'redux-persist'
+import { PersistGate } from 'redux-persist/lib/integration/react'
+
 const SagaMiddleware = createSagaMiddleware()
 const middleware = [SagaMiddleware]
 const enhancer = process.env.NODE_ENV === 'production'
@@ -15,10 +18,14 @@ const store = createStore(rootReducer,enhancer) // rootReducer , enhancer
 SagaMiddleware.run(rootSaga) //sagas/index.js
 //npm install redux-saga axios
 
+const persistor = persistStore(store)
+
 const Store = ({children}) => {
     return (
         <Provider store={store}>
-            {children}
+            <PersistGate loadding={null} persistor={persistor}>
+                {children}
+            </PersistGate>
         </Provider>
     )
 }

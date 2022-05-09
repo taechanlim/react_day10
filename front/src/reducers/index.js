@@ -1,47 +1,38 @@
 import { combineReducers } from "redux";
 import { createAction, handleActions } from 'redux-actions'
 import counter from "./counter";
+import user from "./user";
+import { persistReducer } from 'redux-persist'
+import storage from 'redux-persist/lib/storage'
 
-// const rootReducer = combineReducers({
-//     counter
-// })
+const persist = {
+    key:'user',
+    storage,
+    whitelist:['user']
+}
 
-// const rootReducer = (state,action) => {
-//     return {
-//         number:0,
-//         name:'ingoo'
-//     }
-// }
+// key
+// 어떤내용을 담을거니?
 
-// const initialState = {
-//     number:0
-// }
+//이 파일의 최초 실행 : createStore코드가 실행될때.(store가 만들어질때) -> render되기 전이다.
+// check : 이 코드 실행할때 실행한 브라우저에 localStorage라는 내용안에서 내가 설정한 변수로 저장한값이 있니?
+// 없으면 만들어줄게~(user의 상태값으로 넣어줄게) , 있으면 로컬스토리지의 내용을 가지고 상태를 바꿀게~
+/*
+    localStorage.setItem('name','ingoo')
+    
+    localStorage.getItem('name')
+    > 'ingoo'
+*/
 
-// // const initialState = {
-// //     counter:{
-// //         number:0,
-// //         name:'ingoo'
-// //     },
-// //     comment:{
-// //         list:[]
-// //     }
-// // }
 
-// const UP = 'COUNTER/UP'
-// const DOWN = 'COUNTER/DOWN'
+// localStorage.setItem(persistKey,'ingoo')
 
-// export const up = createAction(UP)
-// export const down = createAction(DOWN)
 
-// const rootReducer = handleActions({
-//         [UP]: (state, action) => ({ number: state.number+1 }),
-//         [DOWN]: (state, action) => ({ number: state.number-1 })
-//     },
-//     initialState
-// )
+
 const rootReducer = combineReducers({
-    counter
+    counter,
+    user
 })
 
 
-export default rootReducer;
+export default persistReducer(persist,rootReducer)

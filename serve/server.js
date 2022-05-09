@@ -5,6 +5,8 @@ const passportConfig = require('./passport')
 const cookieParser = require('cookie-parser')
 const path = require('path')
 const app = express()
+const cors = require('cors')
+
 
 //variable
 const PORT = process.env.PORT || 3500
@@ -19,6 +21,11 @@ app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(cookieParser(COOKIE_SECRET))
 
+app.use(cors({
+    origin:['http://localhost:3000'],
+    credentials:true,
+}))
+//http://localhost:3000/user/web7722@gmail.com
 sequelize.sync({ force: false })
 .then( ()=>{
     console.log('Connect')
