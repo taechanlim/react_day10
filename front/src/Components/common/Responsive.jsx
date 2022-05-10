@@ -5,11 +5,11 @@ const ResponsiveTemplate = styled.div`
     width:1024px;
     margin:0 auto;
 
-    @midea (max-width: 1024px){
+    @media (max-width: 1024px){
         width:768px;
     }
 
-    @meida (max-width: 768px){
+    @media (max-width: 768px){
         width:100%;
     }
 `
